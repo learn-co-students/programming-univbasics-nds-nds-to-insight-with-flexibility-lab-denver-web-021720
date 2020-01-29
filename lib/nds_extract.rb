@@ -1,5 +1,6 @@
 # Provided, don't edit
-require 'directors_database'
+require_relative './directors_database.rb'
+require 'pry'
 
 # A method we're giving you. This "flattens"  Arrays of Arrays so: [[1,2],
 # [3,4,5], [6]] => [1,2,3,4,5,6].
@@ -21,7 +22,7 @@ def flatten_a_o_a(aoa)
 end
 
 def movie_with_director_name(director_name, movie_data)
-  { 
+  {
     :title => movie_data[:title],
     :worldwide_gross => movie_data[:worldwide_gross],
     :release_year => movie_data[:release_year],
@@ -29,7 +30,6 @@ def movie_with_director_name(director_name, movie_data)
     :director_name => director_name
   }
 end
-
 
 # Your code after this point
 
@@ -48,7 +48,29 @@ def movies_with_director_key(name, movies_collection)
   # Array of Hashes where each Hash represents a movie; however, they should all have a
   # :director_name key. This addition can be done by using the provided
   # movie_with_director_name method
+  array = []
+  mlength = movies_collection.length
+  i=0
+  while i < mlength do
+    #binding.pry
+      array << movie_with_director_name(name,movies_collection[i])
+      i=i+1
+  end
+return array
 end
+movies_collection =  [{:title=>"TestA"}, {:title=>"TestB"}]
+dir_name = "Byron Poodle"
+puts movies_with_director_key(dir_name, movies_collection)
+#updated_movies = movies_with_director_key(dir_name, test_set)
+#a=updated_movies[0][:director_name]
+#puts a
+
+
+
+
+
+
+
 
 
 def gross_per_studio(collection)
