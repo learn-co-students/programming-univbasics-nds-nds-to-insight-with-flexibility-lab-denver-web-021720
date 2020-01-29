@@ -58,46 +58,50 @@ def movies_with_director_key(name, movies_collection)
   end
 return array
 end
-movies_collection =  [{:title=>"TestA"}, {:title=>"TestB"}]
-dir_name = "Byron Poodle"
-puts movies_with_director_key(dir_name, movies_collection)
-#updated_movies = movies_with_director_key(dir_name, test_set)
-#a=updated_movies[0][:director_name]
-#puts a
-
-
-
-
-
-
-
-
-
+################
+##############
 def gross_per_studio(collection)
   # GOAL: Given an Array of Hashes where each Hash represents a movie,
   # return a Hash that includes the total worldwide_gross of all the movies from
   # each studio.
-  #
   # INPUT:
   # * collection: Array of Hashes where each Hash where each Hash represents a movie
-  #
   # RETURN:
   #
   # Hash whose keys are the studio names and whose values are the sum
   # total of all the worldwide_gross numbers for every movie in the input Hash
+  #binding.pry
+  hash = {}
+  i=0
+  while i <collection.length
+    #binding.pry
+    key = collection[i][:title]
+    if !hash[key]
+      hash[key] = collection[i][:worldwide_gross]
+    else
+      hash[key]= collection[i][:worldwide_gross] + hash[key]
+    end
+    i+= 1
+  end
 end
+
+puts 'a'
+collection =  [
+  { :title => "Movie A", :studio => "Alpha Films", :worldwide_gross => 10 },
+  { :title => "Movie B", :studio => "Alpha Films", :worldwide_gross => 30 },
+  { :title => "Movie C", :studio => "Omega Films", :worldwide_gross => 30 }
+]
+puts gross_per_studio(collection)
 
 def movies_with_directors_set(source)
   # GOAL: For each director, find their :movies Array and stick it in a new Array
-  #
-  # INPUT:
+    # INPUT:
   # * source: An Array of Hashes containing director information including
   # :name and :movies
-  #
   # RETURN:
-  #
   # Array of Arrays containing all of a director's movies. Each movie will need
   # to have a :director_name key added to it.
+  binding.pry
 end
 
 # ----------------    End of Your Code Region --------------------
