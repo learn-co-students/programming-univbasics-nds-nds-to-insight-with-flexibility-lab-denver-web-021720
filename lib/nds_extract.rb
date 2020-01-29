@@ -85,14 +85,6 @@ def gross_per_studio(collection)
   end
 end
 
-puts 'a'
-collection =  [
-  { :title => "Movie A", :studio => "Alpha Films", :worldwide_gross => 10 },
-  { :title => "Movie B", :studio => "Alpha Films", :worldwide_gross => 30 },
-  { :title => "Movie C", :studio => "Omega Films", :worldwide_gross => 30 }
-]
-puts gross_per_studio(collection)
-
 def movies_with_directors_set(source)
   # GOAL: For each director, find their :movies Array and stick it in a new Array
     # INPUT:
@@ -101,8 +93,28 @@ def movies_with_directors_set(source)
   # RETURN:
   # Array of Arrays containing all of a director's movies. Each movie will need
   # to have a :director_name key added to it.
-  binding.pry
+  #binding.pry
+  a =[]
+  i=0
+  while i < source.length do
+    name = source[i][:name]
+    #binding.pry
+    newterm = source[i][:movies]
+    j=0
+    while j<newterm.length
+      newterm[j][:director_name]=name
+      j=j+1
+    end
+    a[i]=newterm
+    i=i+1
+  end
+
+  return a
 end
+source = [{:name=>"Byron Poodle",
+  :movies=>[{:title=>"At the park"}, {:title=>"On the couch"}]},
+ {:name=>"Nancy Drew", :movies=>[{:title=>"Biting"}]}]
+ puts movies_with_directors_set(source)
 
 # ----------------    End of Your Code Region --------------------
 # Don't edit the following code! Make the methods above work with this method
