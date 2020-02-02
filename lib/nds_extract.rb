@@ -21,13 +21,15 @@ def flatten_a_o_a(aoa)
 end
 
 def movie_with_director_name(director_name, movie_data)
-  { 
+  new_movie_hash = { 
     :title => movie_data[:title],
     :worldwide_gross => movie_data[:worldwide_gross],
     :release_year => movie_data[:release_year],
     :studio => movie_data[:studio],
     :director_name => director_name
   }
+  
+  new_movie_hash
 end
 
 
@@ -48,6 +50,17 @@ def movies_with_director_key(name, movies_collection)
   # Array of Hashes where each Hash represents a movie; however, they should all have a
   # :director_name key. This addition can be done by using the provided
   # movie_with_director_name method
+  return_aoh = []
+  counter = 0 
+  while counter < movies_collection.length do 
+    attachment = movie_with_director_name(name, movies_collection[counter])
+    pp attachment
+    attachment[:director_name] = name
+    return_aoh << attachment
+    counter += 1 
+  end
+  pp return_aoh
+  return_aoh
 end
 
 
@@ -63,6 +76,14 @@ def gross_per_studio(collection)
   #
   # Hash whose keys are the studio names and whose values are the sum
   # total of all the worldwide_gross numbers for every movie in the input Hash
+  return_hash = {}
+  counter = 0 
+  while counter < collection.length do 
+    return_hash[collection[counter][:studio]] == nil ? return_hash[collection[counter][:studio]] = collection[counter][:worldwide_gross] : return_hash[collection[counter][:studio]] += collection[counter][:worldwide_gross]
+    counter += 1 
+  end
+  
+  return_hash
 end
 
 def movies_with_directors_set(source)
@@ -76,6 +97,24 @@ def movies_with_directors_set(source)
   #
   # Array of Arrays containing all of a director's movies. Each movie will need
   # to have a :director_name key added to it.
+  return_array = []
+  counter = 0 
+  while counter < source.length do 
+    movies = source[counter][:movies]
+    name = source[counter][:name]
+    counter2 = 0 
+    while counter2 < movies.length do 
+      movie_hash = movies[counter2]
+      movie_hash[:director_name] = name
+      return_array << [movie_hash]
+      counter2 += 1 
+    end
+    counter += 1 
+  end
+  
+  pp return_array
+  
+  return_array
 end
 
 # ----------------    End of Your Code Region --------------------
